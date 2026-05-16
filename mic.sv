@@ -7,7 +7,7 @@ module mic.sv(
     output logic mic_ready, // Indicates when new ADC data is ready
 );
     // Internal signals for ADC data and control
-    input logic [15:0] adc_raw_data; // Raw ADC data from the XADC IP
+    input logic [15:0] adc_raw_data; // Raw ADC data from the XADC IP (only 15:4 are used for 16-bit data)
     input logic adc_data_ready; // Indicates when new ADC data is ready
     input logic adc_eoc;
     input logic adc_busy;
@@ -41,7 +41,9 @@ module mic.sv(
             mic_data <= 16'h0;
             mic_ready <= 1'b0;
         end else if (adc_data_ready) begin // Essentially data transer from XADC to mic_data when data is ready
-            mic_data <= adc_raw_data; // Capture the ADC data
+            // Capture the ADC data with only the upper 12 bits and pad with zeros to make it 16 bits 
+            // This times the data by 16 so we center it around zero and use the full range of the 16-bit signed representation
+            mic_data <= {adc_raw_data[15:4], 4'b0000} - 16'h8000; 
             mic_ready <= 1'b1; // Indicate that new data is ready
         end else begin
             mic_ready <= 1'b0; // Clear ready flag until next data is ready
