@@ -3,7 +3,7 @@ module fifo(
     input logic rst,
     input logic [15:0] mic_data,
     input logic mic_ready,
-    output logic [15:0] fifo_out [0:15], // 0:16 to iterate 0 to 15
+    output logic [31:0] fifo_out [0:15], // 0:16 to iterate 0 to 15
     output logic frame_ready // when all 16 samples are ready
 );
     localparam DEPTH = 16; // Number of samples in a frame (16-point fft)
@@ -29,9 +29,9 @@ module fifo(
                 if (write_index == DEPTH - 1) begin
                     // When we have collected 16 samples, transfer them to the output and signal that a frame is ready
                     for (int i = 0; i < DEPTH-1; i++) begin
-                        fifo_out[i] <= buffer[i];
+                        fifo_out[i] <= {buffer[i], 16'b0}; // Extend the 16-bit signed data to 32 bits for the FFT module by padding with zeros
                     end
-                    fifo_out[DEPTH-1] <= mic_data; // Include the last sample that was just written to the buffer
+                    fifo_out[DEPTH-1] <= {mic_data, 16'b0}; // Include the last sample that was just written to the buffer
                     frame_ready <= 1'b1; // Signal that a new frame of data is ready for processing
                     write_index <= '0; // Reset write index for the next frame
                 end else begin
