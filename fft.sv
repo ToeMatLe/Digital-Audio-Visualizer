@@ -2,7 +2,7 @@
 /* Four stages */
 module fft
 	#(parameter WIDTH = 32)(
-		input logic [WIDTH-1:0] in [0:15],
+		input logic [WIDTH-1:0] in [0:15], 
 		input logic clk,
 		input logic rst,
 		input logic start,
