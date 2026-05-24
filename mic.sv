@@ -1,17 +1,18 @@
-module mic.sv(
+module mic(
     input logic clk,
     input logic rst,
+    input logic sample_enable, // Sample enable signal from clock divider to control when we capture ADC data
     input logic vauxp6,
     input logic vauxn6,
     output logic [15:0] mic_data, // 16-bit ADC data output
-    output logic mic_ready, // Indicates when new ADC data is ready
+    output logic mic_ready // Indicates when new ADC data is ready
 );
     // Internal signals for ADC data and control
-    input logic [15:0] adc_raw_data; // Raw ADC data from the XADC IP (only 15:4 are used for 16-bit data)
-    input logic adc_data_ready; // Indicates when new ADC data is ready
-    input logic adc_eoc;
-    input logic adc_busy;
-    input logic [4:0] channel_out;
+    logic [15:0] adc_raw_data; // Raw ADC data from the XADC IP (only 15:4 are used for 16-bit data)
+    logic adc_data_ready; // Indicates when new ADC data is ready
+    logic adc_eoc;
+    logic adc_busy;
+    logic [4:0] channel_out;
 
     // ADC IP instantiation
 	mic_xadc XADC_INST (
@@ -36,11 +37,11 @@ module mic.sv(
     );
 
     // Capture ADC data and set ready flag
-    always_ff @(posedge clk ) begin : 
+    always_ff @(posedge clk) begin
         if (rst) begin 
             mic_data <= 16'h0;
             mic_ready <= 1'b0;
-        end else if (adc_data_ready) begin // Essentially data transer from XADC to mic_data when data is ready
+        end else if (adc_data_ready && sample_enable) begin // Capture one ADC result at the selected sample rate
             // Capture the ADC data with only the upper 12 bits and pad with zeros to make it 16 bits 
             // This times the data by 16 so we center it around zero and use the full range of the 16-bit signed representation
             mic_data <= {adc_raw_data[15:4], 4'b0000} - 16'h8000; 
