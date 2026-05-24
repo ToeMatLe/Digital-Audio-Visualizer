@@ -7,36 +7,39 @@ module fft
       parameter POINTS = 16,
       parameter MAX_POINTS = 128)
     (
-        input  logic [WIDTH-1:0] in [0:POINTS-1],
-        input  logic clk,
-        input  logic rst,
-        input  logic start,
+        input logic [WIDTH-1:0] in [0:POINTS-1],
+        input logic clk,
+        input logic rst,
+        input logic start,
         output logic [WIDTH-1:0] out [0:POINTS-1],
         output logic done
     );
 
+    // EX: 16 point takes 2^4 = 4 stages, 64 point takes 2^6 = 6 stages, 128 point takes 2^7 = 7 stages
     localparam STAGES = $clog2(POINTS);
-    localparam TWIDDLE_SCALE = MAX_POINTS / POINTS;
 
+    // State machine for controlling the FFT computation
     typedef enum logic [1:0] {
-		IDLE = 2'b00, 
-		COMPUTE = 2'b01, 
-		OUTPUT = 2'b10
+		IDLE = 2'b00,       // IDLE    = waiting for start
+		COMPUTE = 2'b01,    // COMPUTE = doing butterfly operations
+		OUTPUT = 2'b10      // OUTPUT  = copying final data to out[]
 	} statetype;
     statetype state;
 
+    // Hold values to do operations
     logic [WIDTH-1:0] data [0:POINTS-1];
     logic [WIDTH-1:0] bu_A, bu_B, bu_W, bu_out0, bu_out1;
 
-    int unsigned stage_index;
-    int unsigned group_index;
-    int unsigned pair_index;
-    int unsigned index_a;
-    int unsigned index_b;
-    int unsigned half_size;
-    int unsigned stage_size;
-    int unsigned twiddle_index;
-    int unsigned twiddle_rom_index;
+
+    int unsigned stage_index;   // FFT stage
+    int unsigned group_index;   // Which butterfly group within stage (0 to N/(2*stage_size)-1)
+    int unsigned pair_index;    // Which butterfly pair within group (0 to stage_size/2-1)
+    int unsigned index_a;       // Sample of first index of butterfly pair
+    int unsigned index_b;       // Sample of second index of butterfly pair
+    int unsigned half_size;     // Half the size of the butterfly group for current stage (stage_size/2)
+    int unsigned stage_size;    // Number of points in butterfly group for current stage (2^stage_index)
+    int unsigned twiddle_index; // Which twiddle factor to use for current butterfly pair (pair_index * N/(2*stage_size))
+    int unsigned twiddle_rom_index; // Which twiddle factor to use for current butterfly pair, scaled to the size of the ROM (twiddle_index * TWIDDLE_SCALE)
 
 	// Uses one butterfly unit per stage, reusing it for all pairs in the stage (Pipeline later?)
     butterfly_unit #(.WIDTH(WIDTH)) bu (
@@ -47,6 +50,11 @@ module fft
         .out1(bu_out1)
     );
 
+    // Function to reverse bits for because FFT algorithm requires input in bit-reversed order. For example, with 16 points:
+    // index:  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+    // bits:   0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111
+    // rev:    0000 1000 0100 1100 0010 1010 0110 1110 0001 1001 0101 1101 0011 1010 0110 1111  
+    // in[1] goes to data[8], in[2] goes to data[4], in[3] goes to data[12], etc.
     function automatic int unsigned bit_reverse(input int unsigned value);
         int unsigned reversed;
         begin
@@ -59,6 +67,8 @@ module fft
         end
     endfunction
 
+    // EX: 128/16 = 8, so we take every 8th twiddle factor from table
+    localparam TWIDDLE_SCALE = MAX_POINTS / POINTS;
 	// W_N^k = cos(2πk/N) - j sin(2πk/N) 
     function automatic logic [WIDTH-1:0] twiddle_factor(input int unsigned index);
         begin
