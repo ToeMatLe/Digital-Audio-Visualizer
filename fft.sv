@@ -68,6 +68,8 @@ module fft
     endfunction
 
     // EX: 128/16 = 8, so we take every 8th twiddle factor from table
+    // Stores precomputed twiddle factors for N=128 in Q1.15 format, packed as {real[15:0], imag[15:0]}. 
+    // This allows us to support any FFT size up to 128 (2^7) by just indexing into this table differently.
     localparam TWIDDLE_SCALE = MAX_POINTS / POINTS;
 	// W_N^k = cos(2πk/N) - j sin(2πk/N) 
     function automatic logic [WIDTH-1:0] twiddle_factor(input int unsigned index);
@@ -146,6 +148,7 @@ module fft
 
     always_comb begin
 		// Calculate indices and twiddle factor for the current butterfly operation
+        // Left shift n times = multiply by 2^n
         stage_size = 2 << stage_index;
         half_size = 1 << stage_index;
         index_a = group_index + pair_index;
