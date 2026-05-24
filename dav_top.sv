@@ -6,8 +6,15 @@ module dav_top
         input logic clk,
         input logic rst,
         input logic vauxp6,
-        input logic vauxn6
+        input logic vauxn6,
+        output logic vga_hsync,
+        output logic vga_vsync,
+        output logic [3:0] vga_red,
+        output logic [3:0] vga_green,
+        output logic [3:0] vga_blue
     );
+
+localparam BARS = POINTS / 2;
 
 logic sample_enable;
 clock_divider #(
@@ -54,6 +61,33 @@ fft #(
     .in(fifo_out),
     .out(fft_out),
     .done(fft_done)
+);
+
+logic [9:0] bar_heights [0:BARS-1];
+logic magnitudes_ready;
+magnitude #(
+    .POINTS(POINTS),
+    .BARS(BARS)
+) magnitude_dut (
+    .clk(clk),
+    .rst(rst),
+    .fft_done(fft_done),
+    .fft_out(fft_out),
+    .bar_heights(bar_heights),
+    .magnitudes_ready(magnitudes_ready)
+);
+
+vga #(
+    .BARS(BARS)
+) vga_dut (
+    .clk(clk),
+    .rst(rst),
+    .bar_heights(bar_heights),
+    .hsync(vga_hsync),
+    .vsync(vga_vsync),
+    .red(vga_red),
+    .green(vga_green),
+    .blue(vga_blue)
 );
 
 endmodule
