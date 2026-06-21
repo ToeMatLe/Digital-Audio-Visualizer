@@ -11,6 +11,7 @@ module tb_fifo_fft;
     logic [31:0] fifo_out [0:POINTS-1];
     logic frame_ready;
     logic [31:0] fft_out [0:POINTS-1];
+    logic [7:0] output_points;
     logic fft_done;
     int frame_count;
 
@@ -31,8 +32,10 @@ module tb_fifo_fft;
         .clk(clk),
         .rst(rst),
         .start(frame_ready),
+        .point_count(8'(POINTS)),
         .in(fifo_out),
         .out(fft_out),
+        .output_points(output_points),
         .done(fft_done)
     );
 

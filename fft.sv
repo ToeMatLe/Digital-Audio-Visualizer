@@ -11,12 +11,11 @@ module fft
         input logic clk,
         input logic rst,
         input logic start,
+        input logic [7:0] point_count,
         output logic [WIDTH-1:0] out [0:POINTS-1],
+        output logic [7:0] output_points,
         output logic done
     );
-
-    // EX: 16 point takes 2^4 = 4 stages, 64 point takes 2^6 = 6 stages, 128 point takes 2^7 = 7 stages
-    localparam STAGES = $clog2(POINTS);
 
     // State machine for controlling the FFT computation
     typedef enum logic [1:0] {
@@ -30,6 +29,10 @@ module fft
     logic [WIDTH-1:0] data [0:POINTS-1];
     logic [WIDTH-1:0] bu_A, bu_B, bu_W, bu_out0, bu_out1;
 
+    int unsigned active_points;
+    int unsigned active_stages;
+    int unsigned requested_points;
+    int unsigned requested_stages;
 
     int unsigned stage_index;   // FFT stage
     int unsigned group_index;   // Which butterfly group within stage (0 to N/(2*stage_size)-1)
@@ -55,22 +58,30 @@ module fft
     // bits:   0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111
     // rev:    0000 1000 0100 1100 0010 1010 0110 1110 0001 1001 0101 1101 0011 1010 0110 1111  
     // in[1] goes to data[8], in[2] goes to data[4], in[3] goes to data[12], etc.
-    function automatic int unsigned bit_reverse(input int unsigned value);
-        int unsigned reversed;
+    function automatic int unsigned bit_reverse(
+        input int unsigned value,
+        input int unsigned bits
+    );
         begin
-            reversed = 0;
-            for (int i = 0; i < STAGES; i++) begin
-                reversed = (reversed << 1) | ((value >> i) & 1);
-            end
-
-            bit_reverse = reversed;
+            // Vivado must be able to unroll this logic during synthesis.
+            // "bits" is selected at runtime, so a loop bounded by "bits"
+            // is not synthesis-safe. These are the only supported FFT sizes.
+            case (bits)
+                4: bit_reverse = {28'd0,
+                                  value[0], value[1], value[2], value[3]};
+                6: bit_reverse = {26'd0,
+                                  value[0], value[1], value[2], value[3],
+                                  value[4], value[5]};
+                default: bit_reverse = {25'd0,
+                                        value[0], value[1], value[2], value[3],
+                                        value[4], value[5], value[6]};
+            endcase
         end
     endfunction
 
     // EX: 128/16 = 8, so we take every 8th twiddle factor from table
     // Stores precomputed twiddle factors for N=128 in Q1.15 format, packed as {real[15:0], imag[15:0]}. 
     // This allows us to support any FFT size up to 128 (2^7) by just indexing into this table differently.
-    localparam TWIDDLE_SCALE = MAX_POINTS / POINTS;
 	// W_N^k = cos(2πk/N) - j sin(2πk/N) 
     function automatic logic [WIDTH-1:0] twiddle_factor(input int unsigned index);
         begin
@@ -147,6 +158,23 @@ module fft
     endfunction
 
     always_comb begin
+        case (point_count)
+            8'd16: begin
+                requested_points = 16;
+                requested_stages = 4;
+            end
+
+            8'd64: begin
+                requested_points = 64;
+                requested_stages = 6;
+            end
+
+            default: begin
+                requested_points = 128;
+                requested_stages = 7;
+            end
+        endcase
+
 		// Calculate indices and twiddle factor for the current butterfly operation
         // Left shift n times = multiply by 2^n
         stage_size = 2 << stage_index;
@@ -154,9 +182,9 @@ module fft
         index_a = group_index + pair_index;
         index_b = index_a + half_size;
         // Decides which twiddle factor to use for the butterfly operation based on which pair we're on within the stage. We take every N/(2*stage_size) twiddle factor from the table because of how the FFT algorithm works.
-        twiddle_index = pair_index * (POINTS >> (stage_index + 1));
+        twiddle_index = pair_index * (active_points >> (stage_index + 1));
         // Index of twiddle factor from 128 point table
-        twiddle_rom_index = twiddle_index * TWIDDLE_SCALE;
+        twiddle_rom_index = twiddle_index * (MAX_POINTS / active_points);
 
         bu_A = '0;
         bu_B = '0;
@@ -174,6 +202,9 @@ module fft
             stage_index <= 0;
             group_index <= 0;
             pair_index <= 0;
+            active_points <= POINTS;
+            active_stages <= $clog2(POINTS);
+            output_points <= 8'(POINTS);
             done <= 1'b0;
             // Clear data and output on reset
             for (int i = 0; i < POINTS; i++) begin
@@ -188,9 +219,15 @@ module fft
                     if (start) begin
                         // Load input data into internal buffer in bit-reversed order for the FFT algorithm
                         for (int i = 0; i < POINTS; i++) begin
-                            data[bit_reverse(i)] <= in[i];
+                            if (i < requested_points)
+                                data[bit_reverse(i, requested_stages)] <= in[i];
+                            else
+                                data[i] <= '0;
                         end
 
+                        active_points <= requested_points;
+                        active_stages <= requested_stages;
+                        output_points <= 8'(requested_points);
                         stage_index <= 0;
                         group_index <= 0;
                         pair_index <= 0;
@@ -206,8 +243,8 @@ module fft
                     
                     // When finished with all butterfly pairs in stage, move to OUTPUT
                     // Else move to next butterfly pair, or next group if at end of group
-                    if ((stage_index == STAGES - 1) &&
-                        (group_index == POINTS - stage_size) &&
+                    if ((stage_index == active_stages - 1) &&
+                        (group_index == active_points - stage_size) &&
                         (pair_index == half_size - 1)) begin
                         state <= OUTPUT;
                     end else if (pair_index == half_size - 1) begin
@@ -215,7 +252,7 @@ module fft
                         pair_index <= 0;
 
                         // Move to next stage
-                        if (group_index == POINTS - stage_size) begin
+                        if (group_index == active_points - stage_size) begin
                             group_index <= 0;
                             stage_index <= stage_index + 1;
                         end else begin

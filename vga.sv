@@ -5,6 +5,8 @@ module vga
         input  logic rst,
         input  logic [7:0] active_bars,
         input  logic [9:0] bar_heights [0:MAX_BARS-1],
+        input  logic waveform_mode,
+        input  logic signed [15:0] waveform_samples [0:127],
         output logic frame_start,
         output logic hsync,
         output logic vsync,
@@ -38,9 +40,17 @@ module vga
     logic [9:0] current_height;
     logic within_bar;
     logic bar_pixel;
+    logic axis_pixel;
+    logic waveform_pixel;
     int unsigned bar_index_calc;
     int unsigned bar_width_calc;
     int unsigned h_remainder;
+    int unsigned sample_index;
+    int signed sample_value0;
+    int signed sample_value1;
+    int signed sample_y0;
+    int signed sample_y1;
+    int signed interpolated_y;
 
     assign pixel_tick = (pixel_divider == 2'd3);
     assign frame_start = pixel_tick && (hc == HTOTAL - 1) && (vc == VTOTAL - 1);
@@ -103,17 +113,40 @@ module vga
                     (current_height != 0) &&
                     (vc >= VPIXELS - current_height);
 
+        sample_index = int'(hc) / 5;
+        h_remainder = int'(hc) % 5;
+
+        if (sample_index >= 127)
+            sample_index = 127;
+
+        sample_value0 = {{16{waveform_samples[sample_index][15]}},
+                         waveform_samples[sample_index]};
+        sample_y0 = 240 - (sample_value0 >>> 8);
+
+        if (sample_index < 127) begin
+            sample_value1 = {{16{waveform_samples[sample_index + 1][15]}},
+                             waveform_samples[sample_index + 1]};
+            sample_y1 = 240 - (sample_value1 >>> 8);
+        end else begin
+            sample_value1 = sample_value0;
+            sample_y1 = sample_y0;
+        end
+
+        interpolated_y = sample_y0 +
+                         ((sample_y1 - sample_y0) * int'(h_remainder)) / 5;
+
+        axis_pixel = activeVideo && (vc >= 10'd239) && (vc <= 10'd241);
+        waveform_pixel = activeVideo &&
+                         (interpolated_y >= 0) &&
+                         (interpolated_y < VPIXELS) &&
+                         (int'(vc) >= interpolated_y - 1) &&
+                         (int'(vc) <= interpolated_y + 1);
+
         red = 4'h0;
         green = 4'h0;
         blue = 4'h0;
 
-        if (activeVideo) begin
-            red = 4'h1;
-            green = 4'h1;
-            blue = 4'h2;
-        end
-
-        if (bar_pixel) begin
+        if (!waveform_mode && bar_pixel) begin
             if (current_height < 10'd100) begin
                 red = 4'hA;
                 green = 4'hF;
@@ -135,6 +168,18 @@ module vga
                 green = 4'h3;
                 blue = 4'h7;
             end
+        end
+
+        if (waveform_mode && axis_pixel) begin
+            red = 4'hF;
+            green = 4'hF;
+            blue = 4'hF;
+        end
+
+        if (waveform_mode && waveform_pixel) begin
+            red = 4'h2;
+            green = 4'hE;
+            blue = 4'hF;
         end
     end
 
