@@ -1,5 +1,5 @@
 module dav_top
-    #(parameter SAMPLE_DIVISOR = 2268) // About 44.1 kHz sample
+    #(parameter SAMPLE_DIVISOR = 8000) // About 12.5 kHz sample
     (
         input logic clk,
         input logic rst,

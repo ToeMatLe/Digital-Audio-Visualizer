@@ -153,7 +153,9 @@ module fft
         half_size = 1 << stage_index;
         index_a = group_index + pair_index;
         index_b = index_a + half_size;
+        // Decides which twiddle factor to use for the butterfly operation based on which pair we're on within the stage. We take every N/(2*stage_size) twiddle factor from the table because of how the FFT algorithm works.
         twiddle_index = pair_index * (POINTS >> (stage_index + 1));
+        // Index of twiddle factor from 128 point table
         twiddle_rom_index = twiddle_index * TWIDDLE_SCALE;
 
         bu_A = '0;
@@ -173,7 +175,7 @@ module fft
             group_index <= 0;
             pair_index <= 0;
             done <= 1'b0;
-
+            // Clear data and output on reset
             for (int i = 0; i < POINTS; i++) begin
                 data[i] <= '0;
                 out[i] <= '0;
@@ -184,6 +186,7 @@ module fft
             case (state)
                 IDLE: begin
                     if (start) begin
+                        // Load input data into internal buffer in bit-reversed order for the FFT algorithm
                         for (int i = 0; i < POINTS; i++) begin
                             data[bit_reverse(i)] <= in[i];
                         end
@@ -191,33 +194,42 @@ module fft
                         stage_index <= 0;
                         group_index <= 0;
                         pair_index <= 0;
+                        // When done loading data, move to the COMPUTE state to start processing butterflies
                         state <= COMPUTE;
                     end
                 end
 
                 COMPUTE: begin
+                    // On each clock cycle, the current butterfly result gets written back into data[]
                     data[index_a] <= bu_out0;
                     data[index_b] <= bu_out1;
-
+                    
+                    // When finished with all butterfly pairs in stage, move to OUTPUT
+                    // Else move to next butterfly pair, or next group if at end of group
                     if ((stage_index == STAGES - 1) &&
                         (group_index == POINTS - stage_size) &&
                         (pair_index == half_size - 1)) begin
                         state <= OUTPUT;
                     end else if (pair_index == half_size - 1) begin
+                        // Move to next group and reset pair index
                         pair_index <= 0;
 
+                        // Move to next stage
                         if (group_index == POINTS - stage_size) begin
                             group_index <= 0;
                             stage_index <= stage_index + 1;
                         end else begin
+                            // Move to next group within the same stage
                             group_index <= group_index + stage_size;
                         end
                     end else begin
+                        // Move to next butterfly pair within the same group and stage
                         pair_index <= pair_index + 1;
                     end
                 end
 
                 OUTPUT: begin
+                    // Copy results to output buffer and signal that we're done
                     for (int i = 0; i < POINTS; i++) begin
                         out[i] <= data[i];
                     end
