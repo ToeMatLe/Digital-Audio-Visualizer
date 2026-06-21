@@ -15,7 +15,7 @@ module dav_top
         output logic [3:0] vga_blue
     );
 
-localparam MAX_BARS = 64;
+localparam MAX_BARS = 128;
 
 logic sample_enable;
 clock_divider #(
@@ -65,7 +65,7 @@ fft #(
     .out(fft_out16),
     .done(fft_done16)
 );
-// For 16 bar magnitude calculation (only uses first 8 points of FFT output since the other 8 are symmetric for real inputs)
+// Use the first 8 non-DC bins; the display mirrors them into 16 bars.
 logic [9:0] bar_heights16 [0:7];
 logic magnitudes_ready16;
 magnitude #(
@@ -107,7 +107,7 @@ fft #(
     .out(fft_out64),
     .done(fft_done64)
 );
-// For 64 bar magnitude calculation (only uses first 32 points of FFT output since the other 32 are symmetric for real inputs)
+// Use the first 32 non-DC bins; the display mirrors them into 64 bars.
 logic [9:0] bar_heights64 [0:31];
 logic magnitudes_ready64;
 magnitude #(
@@ -148,7 +148,7 @@ fft #(
     .out(fft_out128),
     .done(fft_done128)
 );
-// For 128 bar magnitude calculation (only uses first 64 points of FFT output since the other 64 are symmetric for real inputs)
+// Use the first 64 non-DC bins; the display mirrors them into 128 bars.
 logic [9:0] bar_heights128 [0:63];
 logic magnitudes_ready128;
 magnitude #(
@@ -163,42 +163,68 @@ magnitude #(
     .magnitudes_ready(magnitudes_ready128)
 );
 
-logic [6:0] active_bars;
+logic [7:0] next_active_bars;
+logic [7:0] active_bars;
 logic [9:0] selected_bar_heights [0:MAX_BARS-1];
+logic [9:0] displayed_bar_heights [0:MAX_BARS-1];
+logic selected_magnitudes_ready;
+logic vga_frame_start;
 
 always_comb begin
-    active_bars = 7'd8;
+    next_active_bars = 8'd16;
+    selected_magnitudes_ready = magnitudes_ready16;
 
     for (int i = 0; i < MAX_BARS; i++) begin
         selected_bar_heights[i] = '0;
     end
 
     if (switch128) begin
-        active_bars = 7'd64;
+        next_active_bars = 8'd128;
+        selected_magnitudes_ready = magnitudes_ready128;
 
         for (int i = 0; i < 64; i++) begin
             selected_bar_heights[i] = bar_heights128[i];
+            selected_bar_heights[127-i] = bar_heights128[i];
         end
     end else if (switch64) begin
-        active_bars = 7'd32;
+        next_active_bars = 8'd64;
+        selected_magnitudes_ready = magnitudes_ready64;
 
         for (int i = 0; i < 32; i++) begin
             selected_bar_heights[i] = bar_heights64[i];
+            selected_bar_heights[63-i] = bar_heights64[i];
         end
     end else if (switch16) begin
-        active_bars = 7'd8;
+        next_active_bars = 8'd16;
+        selected_magnitudes_ready = magnitudes_ready16;
 
         for (int i = 0; i < 8; i++) begin
             selected_bar_heights[i] = bar_heights16[i];
+            selected_bar_heights[15-i] = bar_heights16[i];
         end
     end else begin
-        active_bars = 7'd8;
+        next_active_bars = 8'd16;
+        selected_magnitudes_ready = magnitudes_ready16;
 
         for (int i = 0; i < 8; i++) begin
             selected_bar_heights[i] = bar_heights16[i];
+            selected_bar_heights[15-i] = bar_heights16[i];
         end
     end
 end
+
+pingpong_buffer #(
+    .MAX_BARS(MAX_BARS)
+) bar_frame_buffer (
+    .clk(clk),
+    .rst(rst),
+    .frame_start(vga_frame_start),
+    .update(selected_magnitudes_ready),
+    .next_active_bars(next_active_bars),
+    .next_bar_heights(selected_bar_heights),
+    .active_bars(active_bars),
+    .bar_heights(displayed_bar_heights)
+);
 
 vga #(
     .MAX_BARS(MAX_BARS)
@@ -206,7 +232,8 @@ vga #(
     .clk(clk),
     .rst(rst),
     .active_bars(active_bars),
-    .bar_heights(selected_bar_heights),
+    .bar_heights(displayed_bar_heights),
+    .frame_start(vga_frame_start),
     .hsync(vga_hsync),
     .vsync(vga_vsync),
     .red(vga_red),

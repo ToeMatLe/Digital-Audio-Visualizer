@@ -1,43 +1,75 @@
-module pingPong #(
-  parameter int DEPTH = 768,
-  parameter int ADDR_W = 10
-)(
-  input logic vgaclk,
-  input logic rst,
-
-  input logic frameStart,  // 1 when hc==0 && vc==0, signal sent by vga module
-
-  // VGA read
-  input logic [ADDR_W-1:0] rdAddr,
-  output logic [7:0] rdData,
-
-  // Writer (your animation logic)
-  input logic we,
-  input logic [ADDR_W-1:0] wrAddr,
-  input logic [7:0] wrData
+module pingpong_buffer #(
+    parameter int MAX_BARS = 128
+) (
+    input  logic clk,
+    input  logic rst,
+    input  logic frame_start,
+    input  logic update,
+    input  logic [7:0] next_active_bars,
+    input  logic [9:0] next_bar_heights [0:MAX_BARS-1],
+    output logic [7:0] active_bars,
+    output logic [9:0] bar_heights [0:MAX_BARS-1]
 );
-  logic bufSel; // 0: front=buf0  1: front=buf1
 
-  logic [7:0] buf0 [0:DEPTH-1];
-  logic [7:0] buf1 [0:DEPTH-1];
+    logic front_select;
+    logic update_pending;
+    logic [7:0] active_bars0;
+    logic [7:0] active_bars1;
+    logic [9:0] bar_buffer0 [0:MAX_BARS-1];
+    logic [9:0] bar_buffer1 [0:MAX_BARS-1];
 
-  // swap at start of frame
-  always_ff @(posedge vgaclk or posedge rst) begin
-    if (rst) bufSel <= 1'b0;
-    else if (frameStart) bufSel <= ~bufSel;
-  end
+    always_ff @(posedge clk, posedge rst) begin
+        if (rst) begin
+            front_select <= 1'b0;
+            update_pending <= 1'b0;
+            active_bars0 <= 8'd16;
+            active_bars1 <= 8'd16;
 
-  // combinational read from FRONT buffer
-  always_comb begin
-    rdData = (bufSel == 1'b0) ? buf0[rdAddr] : buf1[rdAddr];
-  end
+            // All bares loaded with 0 height on reset (in parallel)
+            for (int i = 0; i < MAX_BARS; i++) begin
+                bar_buffer0[i] <= '0;
+                bar_buffer1[i] <= '0;
+            end
+        end else begin
+            if (update) begin
+                update_pending <= 1'b1;
 
-  // synchronous write into BACK buffer
-  always_ff @(posedge vgaclk) begin
-    if (we) begin
-      if (bufSel == 1'b0) buf1[wrAddr] <= wrData; // write back
-      else buf0[wrAddr] <= wrData;
+                if (front_select == 1'b0) begin
+                    active_bars1 <= next_active_bars;
+
+                    for (int i = 0; i < MAX_BARS; i++) begin
+                        bar_buffer1[i] <= next_bar_heights[i];
+                    end
+                end else begin
+                    active_bars0 <= next_active_bars;
+
+                    for (int i = 0; i < MAX_BARS; i++) begin
+                        bar_buffer0[i] <= next_bar_heights[i];
+                    end
+                end
+            end
+
+            if (frame_start && update_pending) begin
+                front_select <= ~front_select;
+                update_pending <= 1'b0;
+            end
+        end
     end
-  end
+
+    always_comb begin
+        if (front_select == 1'b0) begin
+            active_bars = active_bars0;
+
+            for (int i = 0; i < MAX_BARS; i++) begin
+                bar_heights[i] = bar_buffer0[i];
+            end
+        end else begin
+            active_bars = active_bars1;
+
+            for (int i = 0; i < MAX_BARS; i++) begin
+                bar_heights[i] = bar_buffer1[i];
+            end
+        end
+    end
 
 endmodule

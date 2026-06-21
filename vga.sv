@@ -1,10 +1,11 @@
 module vga
-    #(parameter MAX_BARS = 64)
+    #(parameter MAX_BARS = 128)
     (
         input  logic clk,
         input  logic rst,
-        input  logic [6:0] active_bars,
+        input  logic [7:0] active_bars,
         input  logic [9:0] bar_heights [0:MAX_BARS-1],
+        output logic frame_start,
         output logic hsync,
         output logic vsync,
         output logic [3:0] red,
@@ -42,6 +43,7 @@ module vga
     int unsigned h_remainder;
 
     assign pixel_tick = (pixel_divider == 2'd3);
+    assign frame_start = pixel_tick && (hc == HTOTAL - 1) && (vc == VTOTAL - 1);
     assign activeVideo = (hc < HPIXELS) && (vc < VPIXELS);
     assign hsync = (hc < HPIXELS + HFP) || (hc >= HPIXELS + HFP + HSPULSE);
     assign vsync = (vc < VPIXELS + VFP) || (vc >= VPIXELS + VFP + VSPULSE);
@@ -70,9 +72,25 @@ module vga
     end
 
     always_comb begin
-        bar_width_calc = HPIXELS / int'(active_bars);
-        bar_index_calc = int'(hc) / bar_width_calc;
-        h_remainder = int'(hc) % bar_width_calc;
+        case (active_bars)
+            8'd128: begin
+                bar_width_calc = 5;
+                bar_index_calc = int'(hc) / 5;
+                h_remainder = int'(hc) % 5;
+            end
+
+            8'd64: begin
+                bar_width_calc = 10;
+                bar_index_calc = int'(hc) / 10;
+                h_remainder = int'(hc) % 10;
+            end
+
+            default: begin
+                bar_width_calc = 40;
+                bar_index_calc = int'(hc) / 40;
+                h_remainder = int'(hc) % 40;
+            end
+        endcase
 
         if (bar_index_calc >= active_bars)
             bar_index_calc = int'(active_bars) - 1;
@@ -96,9 +114,27 @@ module vga
         end
 
         if (bar_pixel) begin
-            red = current_height > 10'd350 ? 4'hF : 4'h2;
-            green = current_height > 10'd350 ? 4'h4 : 4'hD;
-            blue = 4'h5;
+            if (current_height < 10'd100) begin
+                red = 4'hA;
+                green = 4'hF;
+                blue = 4'hE;
+            end else if (current_height < 10'd200) begin
+                red = 4'h5;
+                green = 4'hD;
+                blue = 4'hC;
+            end else if (current_height < 10'd300) begin
+                red = 4'h2;
+                green = 4'hA;
+                blue = 4'hB;
+            end else if (current_height < 10'd400) begin
+                red = 4'h1;
+                green = 4'h6;
+                blue = 4'hA;
+            end else begin
+                red = 4'h1;
+                green = 4'h3;
+                blue = 4'h7;
+            end
         end
     end
 
