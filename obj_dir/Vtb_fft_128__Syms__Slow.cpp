@@ -1,9 +1,9 @@
 // Verilated -*- C++ -*-
 // DESCRIPTION: Verilator output: Symbol table implementation internals
 
-#include "Vtb_fifo_fft__pch.h"
+#include "Vtb_fft_128__pch.h"
 
-Vtb_fifo_fft__Syms::Vtb_fifo_fft__Syms(VerilatedContext* contextp, const char* namep, Vtb_fifo_fft* modelp)
+Vtb_fft_128__Syms::Vtb_fft_128__Syms(VerilatedContext* contextp, const char* namep, Vtb_fft_128* modelp)
     : VerilatedSyms{contextp}
     // Setup internal state of the Syms class
     , __Vm_modelp{modelp}
@@ -11,7 +11,7 @@ Vtb_fifo_fft__Syms::Vtb_fifo_fft__Syms(VerilatedContext* contextp, const char* n
     , TOP{this, namep}
 {
     // Check resources
-    Verilated::stackCheck(1106);
+    Verilated::stackCheck(600);
     // Setup sub module instances
     // Configure time unit / time precision
     _vm_contextp__->timeunit(-9);
@@ -22,7 +22,7 @@ Vtb_fifo_fft__Syms::Vtb_fifo_fft__Syms(VerilatedContext* contextp, const char* n
     // Setup scopes
 }
 
-Vtb_fifo_fft__Syms::~Vtb_fifo_fft__Syms() {
+Vtb_fft_128__Syms::~Vtb_fft_128__Syms() {
     // Tear down scopes
     // Tear down sub module instances
 }

@@ -441,7 +441,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
                                          "tb_fifo_fft.sv", 
                                          130);
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[0U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[0U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 0: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[0U]);
@@ -449,7 +449,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[1U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[1U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 1: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[1U]);
@@ -457,7 +457,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[2U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[2U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 2: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[2U]);
@@ -465,7 +465,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[3U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[3U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 3: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[3U]);
@@ -473,7 +473,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[4U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[4U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 4: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[4U]);
@@ -481,7 +481,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[5U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[5U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 5: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[5U]);
@@ -489,7 +489,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[6U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[6U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 6: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[6U]);
@@ -497,7 +497,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[7U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[7U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 7: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[7U]);
@@ -505,7 +505,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[8U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[8U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 8: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[8U]);
@@ -513,7 +513,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[9U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[9U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 9: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[9U]);
@@ -521,7 +521,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[10U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[10U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 10: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[10U]);
@@ -529,7 +529,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[11U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[11U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 11: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[11U]);
@@ -537,7 +537,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[12U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[12U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 12: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[12U]);
@@ -545,7 +545,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[13U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[13U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 13: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[13U]);
@@ -553,7 +553,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[14U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[14U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 14: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[14U]);
@@ -561,7 +561,7 @@ VlCoroutine Vtb_fifo_fft___024root___eval_initial__TOP__Vtiming__1(Vtb_fifo_fft_
         }
     }
     if (vlSymsp->_vm_contextp__->assertOnGet(2, 1)) {
-        if (VL_UNLIKELY(((0x01000000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[15U])))) {
+        if (VL_UNLIKELY(((0x00100000U != vlSelfRef.tb_fifo_fft__DOT__fft_out[15U])))) {
             VL_WRITEF_NX("[%0t] %%Fatal: tb_fifo_fft.sv:134: Assertion failed in %Ntb_fifo_fft.check_fft_snapshots_fifo_frame.unnamedblk5: FFT did not snapshot impulse frame at bin 15: got %x\n",0,
                          64,VL_TIME_UNITED_Q(1000),
                          -9,vlSymsp->name(),32,vlSelfRef.tb_fifo_fft__DOT__fft_out[15U]);
@@ -752,10 +752,16 @@ void Vtb_fifo_fft___024root___nba_sequent__TOP__1(Vtb_fifo_fft___024root* vlSelf
     Vtb_fifo_fft__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     auto& vlSelfRef = std::ref(*vlSelf).get();
     // Locals
+    IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu_A;
+    tb_fifo_fft__DOT__dut_fft__DOT__bu_A = 0;
     IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu_B;
     tb_fifo_fft__DOT__dut_fft__DOT__bu_B = 0;
     IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu_W;
     tb_fifo_fft__DOT__dut_fft__DOT__bu_W = 0;
+    QData/*32:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_re;
+    tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_re = 0;
+    QData/*32:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_im;
+    tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_im = 0;
     IData/*31:0*/ __VdfgRegularize_hebeb780c_0_0;
     __VdfgRegularize_hebeb780c_0_0 = 0;
     CData/*1:0*/ __Vdly__tb_fifo_fft__DOT__dut_fft__DOT__state;
@@ -919,11 +925,14 @@ void Vtb_fifo_fft___024root___nba_sequent__TOP__1(Vtb_fifo_fft___024root* vlSelf
             }
         } else if ((1U == (IData)(vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__state))) {
             __VdlyVal__tb_fifo_fft__DOT__dut_fft__DOT__data__v32 
-                = ((((vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu_A 
-                      >> 0x00000010U) + (IData)(vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_4)) 
+                = ((VL_SHIFTRS_III(17,17,32, (0x0001ffffU 
+                                              & (vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_4 
+                                                 + vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_5)), 1U) 
                     << 0x00000010U) | (0x0000ffffU 
-                                       & (vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu_A 
-                                          + (IData)(vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_5))));
+                                       & VL_SHIFTRS_III(17,17,32, 
+                                                        (0x0001ffffU 
+                                                         & (vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_6 
+                                                            + vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_7)), 1U)));
             __VdlyDim0__tb_fifo_fft__DOT__dut_fft__DOT__data__v32 
                 = (0x0000000fU & vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__index_a);
             __VdlySet__tb_fifo_fft__DOT__dut_fft__DOT__data__v32 = 1U;
@@ -953,11 +962,14 @@ void Vtb_fifo_fft___024root___nba_sequent__TOP__1(Vtb_fifo_fft___024root* vlSelf
                     = ((IData)(1U) + vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__pair_index);
             }
             __VdlyVal__tb_fifo_fft__DOT__dut_fft__DOT__data__v33 
-                = ((((vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu_A 
-                      >> 0x00000010U) - (IData)(vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_4)) 
+                = ((VL_SHIFTRS_III(17,17,32, (0x0001ffffU 
+                                              & (vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_4 
+                                                 - vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_5)), 1U) 
                     << 0x00000010U) | (0x0000ffffU 
-                                       & (vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu_A 
-                                          - (IData)(vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_5))));
+                                       & VL_SHIFTRS_III(17,17,32, 
+                                                        (0x0001ffffU 
+                                                         & (vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_6 
+                                                            - vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_7)), 1U)));
             __VdlyDim0__tb_fifo_fft__DOT__dut_fft__DOT__data__v33 
                 = (0x0000000fU & vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__index_b);
             __VdlySet__tb_fifo_fft__DOT__dut_fft__DOT__data__v33 = 1U;
@@ -1122,11 +1134,10 @@ void Vtb_fifo_fft___024root___nba_sequent__TOP__1(Vtb_fifo_fft___024root* vlSelf
     vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__index_b 
         = (vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__index_a 
            + vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__half_size);
-    vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu_A = 0U;
+    tb_fifo_fft__DOT__dut_fft__DOT__bu_A = 0U;
     tb_fifo_fft__DOT__dut_fft__DOT__bu_B = 0U;
     if ((1U == (IData)(vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__state))) {
-        vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu_A 
-            = vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__data
+        tb_fifo_fft__DOT__dut_fft__DOT__bu_A = vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__data
             [(0x0000000fU & vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__index_a)];
         tb_fifo_fft__DOT__dut_fft__DOT__bu_B = vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__data
             [(0x0000000fU & vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__index_b)];
@@ -1259,47 +1270,64 @@ void Vtb_fifo_fft___024root___nba_sequent__TOP__1(Vtb_fifo_fft___024root* vlSelf
                                                      ? 0x7f61f374U
                                                      : 0x7fff0000U))))));
     vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_4 
-        = (0x0000ffffU & (IData)((0x000000000003ffffULL 
-                                  & ((VL_MULS_QQQ(33, 
-                                                  (0x00000001ffffffffULL 
-                                                   & VL_EXTENDS_QI(33,16, 
-                                                                   (tb_fifo_fft__DOT__dut_fft__DOT__bu_W 
-                                                                    >> 0x00000010U))), 
-                                                  (0x00000001ffffffffULL 
-                                                   & VL_EXTENDS_QI(33,16, 
-                                                                   (tb_fifo_fft__DOT__dut_fft__DOT__bu_B 
-                                                                    >> 0x00000010U)))) 
-                                      - VL_MULS_QQQ(33, 
-                                                    (0x00000001ffffffffULL 
-                                                     & VL_EXTENDS_QI(33,16, 
-                                                                     (0x0000ffffU 
-                                                                      & tb_fifo_fft__DOT__dut_fft__DOT__bu_W))), 
-                                                    (0x00000001ffffffffULL 
-                                                     & VL_EXTENDS_QI(33,16, 
-                                                                     (0x0000ffffU 
-                                                                      & tb_fifo_fft__DOT__dut_fft__DOT__bu_B))))) 
-                                     >> 0x0000000fU))));
-    vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_5 
-        = (0x0000ffffU & (IData)((0x000000000003ffffULL 
-                                  & ((VL_MULS_QQQ(33, 
+        = ((0x00010000U & (tb_fifo_fft__DOT__dut_fft__DOT__bu_A 
+                           >> 0x0000000fU)) | (tb_fifo_fft__DOT__dut_fft__DOT__bu_A 
+                                               >> 0x00000010U));
+    vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_6 
+        = ((0x00010000U & (tb_fifo_fft__DOT__dut_fft__DOT__bu_A 
+                           << 1U)) | (0x0000ffffU & tb_fifo_fft__DOT__dut_fft__DOT__bu_A));
+    tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_re 
+        = (0x00000001ffffffffULL & (VL_MULS_QQQ(33, 
+                                                (0x00000001ffffffffULL 
+                                                 & VL_EXTENDS_QI(33,16, 
+                                                                 (tb_fifo_fft__DOT__dut_fft__DOT__bu_W 
+                                                                  >> 0x00000010U))), 
+                                                (0x00000001ffffffffULL 
+                                                 & VL_EXTENDS_QI(33,16, 
+                                                                 (tb_fifo_fft__DOT__dut_fft__DOT__bu_B 
+                                                                  >> 0x00000010U)))) 
+                                    - VL_MULS_QQQ(33, 
                                                   (0x00000001ffffffffULL 
                                                    & VL_EXTENDS_QI(33,16, 
                                                                    (0x0000ffffU 
                                                                     & tb_fifo_fft__DOT__dut_fft__DOT__bu_W))), 
                                                   (0x00000001ffffffffULL 
                                                    & VL_EXTENDS_QI(33,16, 
-                                                                   (tb_fifo_fft__DOT__dut_fft__DOT__bu_B 
-                                                                    >> 0x00000010U)))) 
-                                      + VL_MULS_QQQ(33, 
-                                                    (0x00000001ffffffffULL 
-                                                     & VL_EXTENDS_QI(33,16, 
-                                                                     (tb_fifo_fft__DOT__dut_fft__DOT__bu_W 
-                                                                      >> 0x00000010U))), 
-                                                    (0x00000001ffffffffULL 
-                                                     & VL_EXTENDS_QI(33,16, 
-                                                                     (0x0000ffffU 
-                                                                      & tb_fifo_fft__DOT__dut_fft__DOT__bu_B))))) 
-                                     >> 0x0000000fU))));
+                                                                   (0x0000ffffU 
+                                                                    & tb_fifo_fft__DOT__dut_fft__DOT__bu_B))))));
+    tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_im 
+        = (0x00000001ffffffffULL & (VL_MULS_QQQ(33, 
+                                                (0x00000001ffffffffULL 
+                                                 & VL_EXTENDS_QI(33,16, 
+                                                                 (0x0000ffffU 
+                                                                  & tb_fifo_fft__DOT__dut_fft__DOT__bu_W))), 
+                                                (0x00000001ffffffffULL 
+                                                 & VL_EXTENDS_QI(33,16, 
+                                                                 (tb_fifo_fft__DOT__dut_fft__DOT__bu_B 
+                                                                  >> 0x00000010U)))) 
+                                    + VL_MULS_QQQ(33, 
+                                                  (0x00000001ffffffffULL 
+                                                   & VL_EXTENDS_QI(33,16, 
+                                                                   (tb_fifo_fft__DOT__dut_fft__DOT__bu_W 
+                                                                    >> 0x00000010U))), 
+                                                  (0x00000001ffffffffULL 
+                                                   & VL_EXTENDS_QI(33,16, 
+                                                                   (0x0000ffffU 
+                                                                    & tb_fifo_fft__DOT__dut_fft__DOT__bu_B))))));
+    vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_5 
+        = ((0x00010000U & ((IData)((tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_re 
+                                    >> 0x0000001eU)) 
+                           << 0x00000010U)) | (0x0000ffffU 
+                                               & (IData)(
+                                                         (tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_re 
+                                                          >> 0x0000000fU))));
+    vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_7 
+        = ((0x00010000U & ((IData)((tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_im 
+                                    >> 0x0000001eU)) 
+                           << 0x00000010U)) | (0x0000ffffU 
+                                               & (IData)(
+                                                         (tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_im 
+                                                          >> 0x0000000fU))));
 }
 
 void Vtb_fifo_fft___024root___nba_sequent__TOP__2(Vtb_fifo_fft___024root* vlSelf) {

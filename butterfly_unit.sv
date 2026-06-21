@@ -28,12 +28,32 @@ module butterfly_unit
     logic signed [WIDTH:0] WxB_re, WxB_im;
     assign WxB_re = W_re * B_re - W_im * B_im;
     assign WxB_im = W_im * B_re + W_re * B_im;
-	
-	// A + truncated (B * W)
-    assign out0_re = A_re + $signed(WxB_re[WIDTH-2:WIDTH/2-1]);
-    assign out0_im = A_im + $signed(WxB_im[WIDTH-2:WIDTH/2-1]);
-    assign out1_re = A_re - $signed(WxB_re[WIDTH-2:WIDTH/2-1]);
-    assign out1_im = A_im - $signed(WxB_im[WIDTH-2:WIDTH/2-1]);
+
+    logic signed [WIDTH/2-1:0] multiplied_re, multiplied_im;
+    logic signed [WIDTH/2:0] sum_re, sum_im;
+    logic signed [WIDTH/2:0] difference_re, difference_im;
+    logic signed [WIDTH/2:0] scaled_sum_re, scaled_sum_im;
+    logic signed [WIDTH/2:0] scaled_difference_re, scaled_difference_im;
+
+    assign multiplied_re = $signed(WxB_re[WIDTH-2:WIDTH/2-1]);
+    assign multiplied_im = $signed(WxB_im[WIDTH-2:WIDTH/2-1]);
+
+    // Widen before adding, then divide every butterfly by two. This prevents
+    // the 16-bit data path from overflowing as larger FFTs progress by stage.
+    assign sum_re = {A_re[WIDTH/2-1], A_re} + {multiplied_re[WIDTH/2-1], multiplied_re};
+    assign sum_im = {A_im[WIDTH/2-1], A_im} + {multiplied_im[WIDTH/2-1], multiplied_im};
+    assign difference_re = {A_re[WIDTH/2-1], A_re} - {multiplied_re[WIDTH/2-1], multiplied_re};
+    assign difference_im = {A_im[WIDTH/2-1], A_im} -{multiplied_im[WIDTH/2-1], multiplied_im};
+
+    assign scaled_sum_re = sum_re >>> 1;
+    assign scaled_sum_im = sum_im >>> 1;
+    assign scaled_difference_re = difference_re >>> 1;
+    assign scaled_difference_im = difference_im >>> 1;
+
+    assign out0_re = scaled_sum_re[WIDTH/2-1:0];
+    assign out0_im = scaled_sum_im[WIDTH/2-1:0];
+    assign out1_re = scaled_difference_re[WIDTH/2-1:0];
+    assign out1_im = scaled_difference_im[WIDTH/2-1:0];
     
     // Combine real and imaginary components of output signals
     assign out0 = {out0_re, out0_im};

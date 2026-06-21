@@ -130,7 +130,7 @@ module tb_fifo_fft;
             #1;
 
             for (int i = 0; i < POINTS; i++) begin
-                assert (fft_out[i] == 32'h0100_0000)
+                assert (fft_out[i] == 32'h0010_0000)
                     else $fatal(1, "FFT did not snapshot impulse frame at bin %0d: got %h", i, fft_out[i]);
             end
 

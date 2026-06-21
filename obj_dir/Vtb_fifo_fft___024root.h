@@ -38,10 +38,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vtb_fifo_fft___024root final {
     CData/*0:0*/ __VinactPhaseResult;
     CData/*0:0*/ __VnbaPhaseResult;
     SData/*15:0*/ tb_fifo_fft__DOT__mic_data;
-    SData/*15:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_4;
-    SData/*15:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_5;
     IData/*31:0*/ tb_fifo_fft__DOT__frame_count;
-    IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu_A;
     IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__stage_index;
     IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__group_index;
     IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__pair_index;
@@ -49,6 +46,10 @@ class alignas(VL_CACHE_LINE_BYTES) Vtb_fifo_fft___024root final {
     IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__index_b;
     IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__half_size;
     IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__stage_size;
+    IData/*16:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_4;
+    IData/*16:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_5;
+    IData/*16:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_6;
+    IData/*16:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_7;
     IData/*31:0*/ __Vtask_tb_fifo_fft__DOT__wait_for_frame__4__expected_count;
     IData/*31:0*/ __Vtask_tb_fifo_fft__DOT__wait_for_frame__11__expected_count;
     IData/*31:0*/ __VactIterCount;

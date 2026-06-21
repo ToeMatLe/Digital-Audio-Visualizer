@@ -1,6 +1,7 @@
 module magnitude
     #(parameter POINTS = 16,
-      parameter BARS = POINTS / 2)
+      parameter BARS = POINTS / 2,
+      parameter DISPLAY_SHIFT = 4)
     (
         input  logic clk,
         input  logic rst,
@@ -22,7 +23,7 @@ module magnitude
     logic signed [15:0] real_part;
     logic signed [15:0] imag_part;
     logic [17:0] approx_mag;
-    logic [9:0] scaled_height;
+    logic [17:0] scaled_height;
     int unsigned bin_index;
 
     always_ff @(posedge clk, posedge rst) begin
@@ -41,12 +42,12 @@ module magnitude
                     real_part = fft_out[bin_index][31:16];
                     imag_part = fft_out[bin_index][15:0];
                     approx_mag = abs16(real_part) + abs16(imag_part);
-                    scaled_height = approx_mag[17:8];
+                    scaled_height = approx_mag >> DISPLAY_SHIFT;
 
-                    if (scaled_height > 10'd470)
+                    if (scaled_height > 18'd470)
                         bar_heights[i] <= 10'd470;
                     else
-                        bar_heights[i] <= scaled_height;
+                        bar_heights[i] <= scaled_height[9:0];
                 end
 
                 magnitudes_ready <= 1'b1;

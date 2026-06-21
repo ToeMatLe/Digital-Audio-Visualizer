@@ -113,10 +113,16 @@ VL_ATTR_COLD void Vtb_fifo_fft___024root___stl_sequent__TOP__0(Vtb_fifo_fft___02
     Vtb_fifo_fft__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     auto& vlSelfRef = std::ref(*vlSelf).get();
     // Locals
+    IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu_A;
+    tb_fifo_fft__DOT__dut_fft__DOT__bu_A = 0;
     IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu_B;
     tb_fifo_fft__DOT__dut_fft__DOT__bu_B = 0;
     IData/*31:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu_W;
     tb_fifo_fft__DOT__dut_fft__DOT__bu_W = 0;
+    QData/*32:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_re;
+    tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_re = 0;
+    QData/*32:0*/ tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_im;
+    tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_im = 0;
     IData/*31:0*/ __VdfgRegularize_hebeb780c_0_0;
     __VdfgRegularize_hebeb780c_0_0 = 0;
     // Body
@@ -134,11 +140,10 @@ VL_ATTR_COLD void Vtb_fifo_fft___024root___stl_sequent__TOP__0(Vtb_fifo_fft___02
     vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__index_b 
         = (vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__index_a 
            + vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__half_size);
-    vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu_A = 0U;
+    tb_fifo_fft__DOT__dut_fft__DOT__bu_A = 0U;
     tb_fifo_fft__DOT__dut_fft__DOT__bu_B = 0U;
     if ((1U == (IData)(vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__state))) {
-        vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu_A 
-            = vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__data
+        tb_fifo_fft__DOT__dut_fft__DOT__bu_A = vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__data
             [(0x0000000fU & vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__index_a)];
         tb_fifo_fft__DOT__dut_fft__DOT__bu_B = vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__data
             [(0x0000000fU & vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__index_b)];
@@ -271,47 +276,64 @@ VL_ATTR_COLD void Vtb_fifo_fft___024root___stl_sequent__TOP__0(Vtb_fifo_fft___02
                                                      ? 0x7f61f374U
                                                      : 0x7fff0000U))))));
     vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_4 
-        = (0x0000ffffU & (IData)((0x000000000003ffffULL 
-                                  & ((VL_MULS_QQQ(33, 
-                                                  (0x00000001ffffffffULL 
-                                                   & VL_EXTENDS_QI(33,16, 
-                                                                   (tb_fifo_fft__DOT__dut_fft__DOT__bu_W 
-                                                                    >> 0x00000010U))), 
-                                                  (0x00000001ffffffffULL 
-                                                   & VL_EXTENDS_QI(33,16, 
-                                                                   (tb_fifo_fft__DOT__dut_fft__DOT__bu_B 
-                                                                    >> 0x00000010U)))) 
-                                      - VL_MULS_QQQ(33, 
-                                                    (0x00000001ffffffffULL 
-                                                     & VL_EXTENDS_QI(33,16, 
-                                                                     (0x0000ffffU 
-                                                                      & tb_fifo_fft__DOT__dut_fft__DOT__bu_W))), 
-                                                    (0x00000001ffffffffULL 
-                                                     & VL_EXTENDS_QI(33,16, 
-                                                                     (0x0000ffffU 
-                                                                      & tb_fifo_fft__DOT__dut_fft__DOT__bu_B))))) 
-                                     >> 0x0000000fU))));
-    vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_5 
-        = (0x0000ffffU & (IData)((0x000000000003ffffULL 
-                                  & ((VL_MULS_QQQ(33, 
+        = ((0x00010000U & (tb_fifo_fft__DOT__dut_fft__DOT__bu_A 
+                           >> 0x0000000fU)) | (tb_fifo_fft__DOT__dut_fft__DOT__bu_A 
+                                               >> 0x00000010U));
+    vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_6 
+        = ((0x00010000U & (tb_fifo_fft__DOT__dut_fft__DOT__bu_A 
+                           << 1U)) | (0x0000ffffU & tb_fifo_fft__DOT__dut_fft__DOT__bu_A));
+    tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_re 
+        = (0x00000001ffffffffULL & (VL_MULS_QQQ(33, 
+                                                (0x00000001ffffffffULL 
+                                                 & VL_EXTENDS_QI(33,16, 
+                                                                 (tb_fifo_fft__DOT__dut_fft__DOT__bu_W 
+                                                                  >> 0x00000010U))), 
+                                                (0x00000001ffffffffULL 
+                                                 & VL_EXTENDS_QI(33,16, 
+                                                                 (tb_fifo_fft__DOT__dut_fft__DOT__bu_B 
+                                                                  >> 0x00000010U)))) 
+                                    - VL_MULS_QQQ(33, 
                                                   (0x00000001ffffffffULL 
                                                    & VL_EXTENDS_QI(33,16, 
                                                                    (0x0000ffffU 
                                                                     & tb_fifo_fft__DOT__dut_fft__DOT__bu_W))), 
                                                   (0x00000001ffffffffULL 
                                                    & VL_EXTENDS_QI(33,16, 
-                                                                   (tb_fifo_fft__DOT__dut_fft__DOT__bu_B 
-                                                                    >> 0x00000010U)))) 
-                                      + VL_MULS_QQQ(33, 
-                                                    (0x00000001ffffffffULL 
-                                                     & VL_EXTENDS_QI(33,16, 
-                                                                     (tb_fifo_fft__DOT__dut_fft__DOT__bu_W 
-                                                                      >> 0x00000010U))), 
-                                                    (0x00000001ffffffffULL 
-                                                     & VL_EXTENDS_QI(33,16, 
-                                                                     (0x0000ffffU 
-                                                                      & tb_fifo_fft__DOT__dut_fft__DOT__bu_B))))) 
-                                     >> 0x0000000fU))));
+                                                                   (0x0000ffffU 
+                                                                    & tb_fifo_fft__DOT__dut_fft__DOT__bu_B))))));
+    tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_im 
+        = (0x00000001ffffffffULL & (VL_MULS_QQQ(33, 
+                                                (0x00000001ffffffffULL 
+                                                 & VL_EXTENDS_QI(33,16, 
+                                                                 (0x0000ffffU 
+                                                                  & tb_fifo_fft__DOT__dut_fft__DOT__bu_W))), 
+                                                (0x00000001ffffffffULL 
+                                                 & VL_EXTENDS_QI(33,16, 
+                                                                 (tb_fifo_fft__DOT__dut_fft__DOT__bu_B 
+                                                                  >> 0x00000010U)))) 
+                                    + VL_MULS_QQQ(33, 
+                                                  (0x00000001ffffffffULL 
+                                                   & VL_EXTENDS_QI(33,16, 
+                                                                   (tb_fifo_fft__DOT__dut_fft__DOT__bu_W 
+                                                                    >> 0x00000010U))), 
+                                                  (0x00000001ffffffffULL 
+                                                   & VL_EXTENDS_QI(33,16, 
+                                                                   (0x0000ffffU 
+                                                                    & tb_fifo_fft__DOT__dut_fft__DOT__bu_B))))));
+    vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_5 
+        = ((0x00010000U & ((IData)((tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_re 
+                                    >> 0x0000001eU)) 
+                           << 0x00000010U)) | (0x0000ffffU 
+                                               & (IData)(
+                                                         (tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_re 
+                                                          >> 0x0000000fU))));
+    vlSelfRef.tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_7 
+        = ((0x00010000U & ((IData)((tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_im 
+                                    >> 0x0000001eU)) 
+                           << 0x00000010U)) | (0x0000ffffU 
+                                               & (IData)(
+                                                         (tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT__WxB_im 
+                                                          >> 0x0000000fU))));
 }
 
 VL_ATTR_COLD void Vtb_fifo_fft___024root___eval_stl(Vtb_fifo_fft___024root* vlSelf) {
@@ -404,7 +426,6 @@ VL_ATTR_COLD void Vtb_fifo_fft___024root___ctor_var_reset(Vtb_fifo_fft___024root
     for (int __Vi0 = 0; __Vi0 < 16; ++__Vi0) {
         vlSelf->tb_fifo_fft__DOT__dut_fft__DOT__data[__Vi0] = VL_SCOPED_RAND_RESET_I(32, __VscopeHash, 12274868713456125504ull);
     }
-    vlSelf->tb_fifo_fft__DOT__dut_fft__DOT__bu_A = VL_SCOPED_RAND_RESET_I(32, __VscopeHash, 437220214643634505ull);
     vlSelf->tb_fifo_fft__DOT__dut_fft__DOT__stage_index = 0;
     vlSelf->tb_fifo_fft__DOT__dut_fft__DOT__group_index = 0;
     vlSelf->tb_fifo_fft__DOT__dut_fft__DOT__pair_index = 0;
@@ -414,6 +435,8 @@ VL_ATTR_COLD void Vtb_fifo_fft___024root___ctor_var_reset(Vtb_fifo_fft___024root
     vlSelf->tb_fifo_fft__DOT__dut_fft__DOT__stage_size = 0;
     vlSelf->tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_4 = 0;
     vlSelf->tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_5 = 0;
+    vlSelf->tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_6 = 0;
+    vlSelf->tb_fifo_fft__DOT__dut_fft__DOT__bu__DOT____VdfgRegularize_h07342c17_0_7 = 0;
     vlSelf->__Vtask_tb_fifo_fft__DOT__wait_for_frame__4__expected_count = 0;
     vlSelf->__Vtask_tb_fifo_fft__DOT__wait_for_frame__11__expected_count = 0;
     vlSelf->__Vdly__tb_fifo_fft__DOT__dut_fifo__DOT__write_index = 0;
