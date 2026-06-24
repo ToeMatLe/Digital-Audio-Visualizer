@@ -18,8 +18,7 @@ The top-level design is `dav_top.sv`. The current signal path is:
 ## Video Demo
 
 Add a demo video here later:
-
-<!-- Drag in or link your demo video here. -->
+https://github.com/user-attachments/assets/535b39ba-fc2e-43ba-8908-097c469c224c
 
 ## Hardware Target
 
