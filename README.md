@@ -17,8 +17,7 @@ The top-level design is `dav_top.sv`. The current signal path is:
 
 ## Video Demo
 
-Add a demo video here later:
-https://github.com/user-attachments/assets/535b39ba-fc2e-43ba-8908-097c469c224c
+<video src="https://github.com/user-attachments/assets/535b39ba-fc2e-43ba-8908-097c469c224c" controls width="700"></video>
 
 ## Hardware Target
 
@@ -58,18 +57,6 @@ If multiple switches are active, `switch128` has priority, then `switch64`, then
 | `run.xdc` | Basys 3 pin and clock constraints |
 | `xadc_wiz_0.xci` | Vivado XADC IP configuration |
 
-## Simulation
-
-The repo includes focused SystemVerilog testbenches:
-
-| Testbench | Checks |
-| --- | --- |
-| `tests/tb_fifo_fft.sv` | FIFO frame assembly and stable FFT frame snapshots |
-| `tests/tb_pingpong_buffer.sv` | Bar-buffer swaps only happen on frame boundaries |
-| `tests/tb_bar_mapper.sv` | FFT-bin grouping into display bars |
-| `tests/tb_fft_128.sv` | 128-point FFT behavior |
-
-The testbenches live in `tests/`. Generated Verilator build output goes into `obj_dir/`, which is ignored by the root `.gitignore`.
 
 ## Vivado Notes
 
