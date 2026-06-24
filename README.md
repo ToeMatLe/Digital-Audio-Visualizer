@@ -64,14 +64,15 @@ The repo includes focused SystemVerilog testbenches:
 
 | Testbench | Checks |
 | --- | --- |
-| `tb_fifo_fft.sv` | FIFO frame assembly and stable FFT frame snapshots |
-| `tb_pingpong_buffer.sv` | Bar-buffer swaps only happen on frame boundaries |
+| `tests/tb_fifo_fft.sv` | FIFO frame assembly and stable FFT frame snapshots |
+| `tests/tb_pingpong_buffer.sv` | Bar-buffer swaps only happen on frame boundaries |
+| `tests/tb_bar_mapper.sv` | FFT-bin grouping into display bars |
+| `tests/tb_fft_128.sv` | 128-point FFT behavior |
 
-The generated Verilator build output goes into `obj_dir/`, which is ignored by Git.
+The testbenches live in `tests/`. Generated Verilator build output goes into `obj_dir/`, which is ignored by the root `.gitignore`.
 
 ## Vivado Notes
 
 Add the SystemVerilog sources, `run.xdc`, and `xadc_wiz_0.xci` to a Vivado project targeting the Basys 3 FPGA. Use `dav_top` as the top module.
 
 `SAMPLE_DIVISOR` in `dav_top.sv` controls how often samples are accepted from the XADC path. With the current value of `8000`, a 100 MHz input clock produces sample-enable pulses at about 12.5 kHz.
-
